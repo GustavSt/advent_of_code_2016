@@ -1,6 +1,11 @@
 var request = require('request');
 var session = require('./session');
 
+/**
+ * Returns promise resolved with data for specified day
+ * @param day
+ * @returns {Promise}
+ */
 module.exports = function(day) {
   return new Promise((resolve, reject)=> {
     request(
