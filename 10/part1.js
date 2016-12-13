@@ -22,9 +22,19 @@ fetch(10).then(data => {
   });
   var botToFind = 'couldn\'t find bot';
   // console.log(bots);
-  instructions.subsequent.forEach(instruction => {
+  for(let i = 0; i < instructions.subsequent.length; i++){
+    let instruction = instructions.subsequent[i];
     var giverBot = bots[instruction.giverBotId];
+    //instruction can't be processed yet
+    if(!giverBot || giverBot.microShips.length !== 2){
+      instructions.subsequent.splice(i, 1);
+      instructions.subsequent.push(instruction);
+      i--;
+      continue;
+    }
     if (giverBot.microShips[0] === 17 && giverBot.microShips[1] === 61) {
+      console.log(instruction);
+      console.log(giverBot);
       botToFind = instruction.giverBotId;
     }
     switch (instruction.lowDestEntity) {
@@ -70,7 +80,7 @@ fetch(10).then(data => {
         }
         break;
     }
-  });
+  }
 
   console.log(botToFind);
 });
